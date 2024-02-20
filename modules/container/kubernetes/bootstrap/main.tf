@@ -72,4 +72,22 @@ module addons {
   key_vault_id = var.key_vault_id
   dns_zone_id = var.dns_zone_id
   letsencrypt_account_name = var.letsencrypt_account_name
+  application_gateway_id = var.application_gateway_id
+}
+
+module ingress {
+  source                   = "../../../../../iac-tf-az-cloudtrain-modules//modules/container/aks/ingress/nginx"
+  region_name              = var.region_name
+  region_code              = var.region_code
+  solution_fqn             = var.solution_fqn
+  solution_name            = var.solution_name
+  solution_stage           = var.solution_stage
+  common_tags              = var.common_tags
+  resource_group_id        = var.resource_group_id
+  aks_cluster_id           = var.k8s_cluster_id
+  cert_manager_enabled     = true
+  cert_manager_issuer_name = "letsencrypt-prod"
+  agic_enabled             = true
+  public_dns_zone_id       = var.dns_zone_id
+  depends_on = [ module.addons ]
 }

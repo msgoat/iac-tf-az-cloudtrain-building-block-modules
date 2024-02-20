@@ -14,3 +14,4 @@ k8s_cluster_id = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGr
 key_vault_id = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGroups/rg-weu-iactrain-dev-k8stst2024/providers/Microsoft.KeyVault/vaults/kv-iactrain-dev-shared"
 dns_zone_id = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGroups/rg-weu-iactrain-dev-k8stst2024/providers/Microsoft.Network/dnszones/iactrain-dev.k8s.azure.msgoat.eu"
 letsencrypt_account_name = "michael.theis@msg.group"
+application_gateway_id = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGroups/rg-weu-iactrain-dev-k8stst2024/providers/Microsoft.Network/applicationGateways/agw-weu-iactrain-dev-k8stst2024"

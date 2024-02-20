@@ -53,10 +53,9 @@ variable "kubernetes_workload_access_cidrs" {
   type        = list(string)
 }
 
-variable "zones_to_span" {
-  description = "Number of availability zones the Kubernetes cluster is supposed to span"
-  type        = number
-  default     = 2
+variable "names_of_zones_to_span" {
+  description = "Names of availability zones the AKS cluster is supposed to span"
+  type        = list(string)
 }
 
 variable "node_group_templates" {
@@ -88,7 +87,12 @@ variable "kubernetes_admin_group_ids" {
   type        = list(string)
 }
 
-variable parent_dns_zone_id {
+variable "parent_dns_zone_id" {
   description = "Unique identifier of a public parent DNS zone the newly created DNS zone should be linked with"
-  type = string
+  type        = string
+}
+
+variable "encryption_at_host_enabled" {
+  description = "Controls if encryption at host should be enabled on all AKS worker nodes (default: true). Attention: current subscription must support it!"
+  type        = bool
 }

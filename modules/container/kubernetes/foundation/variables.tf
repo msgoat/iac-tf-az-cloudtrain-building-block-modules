@@ -28,19 +28,19 @@ variable "common_tags" {
   type        = map(string)
 }
 
-variable resource_group_id {
+variable "resource_group_id" {
   description = "The unique identifier of the resource group supposed to own all allocated resources"
-  type = string
+  type        = string
 }
 
-variable key_vault_id {
+variable "key_vault_id" {
   description = "Unique identifier the shared key vault instance used by this solution."
-  type = string
+  type        = string
 }
 
-variable log_analytics_workspace_id {
+variable "log_analytics_workspace_id" {
   description = "Unique identifier of the log analytics workspace; only required if azure_monitoring_enabled == true"
-  type = string
+  type        = string
 }
 
 variable "network_cidr" {
@@ -68,38 +68,47 @@ variable "kubernetes_workload_access_cidrs" {
   type        = list(string)
 }
 
-variable "zones_to_span" {
-  description = "Number of availability zones the Kubernetes cluster is supposed to span"
-  type        = number
-  default     = 2
+variable "names_of_zones_to_span" {
+  description = "Names of availability zones the AKS cluster is supposed to span"
+  type        = list(string)
+  default     = []
 }
 
 variable "node_group_templates" {
   description = "Templates for node groups attached to the Kubernetes cluster, will be replicated for each spanned zone"
   type = list(object({
-    enabled            = optional(bool, true)  # controls if this node group gets actually created
-    managed            = optional(bool, true)  # controls if this node group is a managed or unmanaged node group
-    name               = string                 # logical name of this nodegroup
-    role               = string                 # role of the node group; must be either "user" or "system"
-    kubernetes_version = optional(string, null)       # Kubernetes version of this node group; will default to kubernetes_version of the cluster, if not specified but may differ from kubernetes_version during cluster upgrades
-    min_size           = number       # minimum size of this node group
-    max_size           = number       # maximum size of this node group
+    enabled            = optional(bool, true)      # controls if this node group gets actually created
+    managed            = optional(bool, true)      # controls if this node group is a managed or unmanaged node group
+    name               = string                    # logical name of this nodegroup
+    role               = string                    # role of the node group; must be either "user" or "system"
+    kubernetes_version = optional(string, null)    # Kubernetes version of this node group; will default to kubernetes_version of the cluster, if not specified but may differ from kubernetes_version during cluster upgrades
+    min_size           = number                    # minimum size of this node group
+    max_size           = number                    # maximum size of this node group
     desired_size       = optional(number, 0)       # desired size of this node group; will default to min_size if set to 0
-    disk_size          = number       # size of attached root volume in GB
-    capacity_type      = string       # defines the purchasing option for the EC2 instances in all node groups
-    instance_type      = string        # virtual machine instance type which should be used for the AWS EKS worker node groups ordered descending by preference
-    labels             = optional(map(string), {})  # Kubernetes labels to be attached to each worker node
+    disk_size          = number                    # size of attached root volume in GB
+    capacity_type      = string                    # defines the purchasing option for the EC2 instances in all node groups
+    instance_type      = string                    # virtual machine instance type which should be used for the AWS EKS worker node groups ordered descending by preference
+    labels             = optional(map(string), {}) # Kubernetes labels to be attached to each worker node
     taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    })), []) # Kubernetes taints to be attached to each worker node
-    image_type         = optional(string, "AL2_x86_64") # Type of OS images to be used for EC2 instances; possible values are: AL2_x86_64 | AL2_x86_64_GPU | AL2_ARM_64 | CUSTOM | BOTTLEROCKET_ARM_64 | BOTTLEROCKET_x86_64 | BOTTLEROCKET_ARM_64_NVIDIA | BOTTLEROCKET_x86_64_NVIDIA; default is "AL2_x86_64"
+    })), [])                                    # Kubernetes taints to be attached to each worker node
+    image_type = optional(string, "AL2_x86_64") # Type of OS images to be used for EC2 instances; possible values are: AL2_x86_64 | AL2_x86_64_GPU | AL2_ARM_64 | CUSTOM | BOTTLEROCKET_ARM_64 | BOTTLEROCKET_x86_64 | BOTTLEROCKET_ARM_64_NVIDIA | BOTTLEROCKET_x86_64_NVIDIA; default is "AL2_x86_64"
   }))
 }
 
-variable kubernetes_admin_group_ids {
+variable "kubernetes_admin_group_ids" {
   description = "List of group object IDs whose members are allowed to administrate the Kubernetes cluster"
-  type = list(string)
+  type        = list(string)
 }
 
+variable "encryption_at_host_enabled" {
+  description = "Controls if encryption at host should be enabled on all AKS worker nodes (default: true). Attention: current subscription must support it!"
+  type        = bool
+}
+
+variable "public_dns_zone_id" {
+  description = "Unique identifier of the public DNS zone managing all DNS records routing traffic to this solution"
+  type        = string
+}

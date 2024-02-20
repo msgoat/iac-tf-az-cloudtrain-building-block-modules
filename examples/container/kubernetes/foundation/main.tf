@@ -35,15 +35,15 @@ resource "azurerm_resource_group" "owner" {
 
 # -- We need to provide a DNS zone for all DNS records referring to workload on the cluster
 module "public_dns" {
-  source            = "../../../../../iac-tf-az-cloudtrain-modules//modules/dns/public-dns-zone"
-  region_name       = var.region_name
-  region_code       = var.region_code
-  solution_fqn      = var.solution_fqn
-  solution_name     = var.solution_name
-  solution_stage    = var.solution_stage
-  common_tags       = var.common_tags
-  resource_group_id = azurerm_resource_group.owner.id
-  dns_zone_name     = "${var.solution_fqn}.k8s.azure.msgoat.eu"
+  source             = "../../../../../iac-tf-az-cloudtrain-modules//modules/dns/public-dns-zone"
+  region_name        = var.region_name
+  region_code        = var.region_code
+  solution_fqn       = var.solution_fqn
+  solution_name      = var.solution_name
+  solution_stage     = var.solution_stage
+  common_tags        = var.common_tags
+  resource_group_id  = azurerm_resource_group.owner.id
+  dns_zone_name      = "${var.solution_fqn}.k8s.azure.msgoat.eu"
   parent_dns_zone_id = var.parent_dns_zone_id
 }
 
@@ -85,11 +85,13 @@ module "k8s_foundation" {
   log_analytics_workspace_id       = module.log_analytics_workspace.log_analytics_workspace_id
   common_tags                      = var.common_tags
   network_cidr                     = var.network_cidr
-  zones_to_span                    = var.zones_to_span
+  names_of_zones_to_span           = var.names_of_zones_to_span
   kubernetes_api_access_cidrs      = var.kubernetes_api_access_cidrs
   kubernetes_workload_access_cidrs = var.kubernetes_workload_access_cidrs
   kubernetes_cluster_name          = var.kubernetes_cluster_name
   kubernetes_version               = var.kubernetes_version
   node_group_templates             = var.node_group_templates
   kubernetes_admin_group_ids       = var.kubernetes_admin_group_ids
+  encryption_at_host_enabled       = var.encryption_at_host_enabled
+  public_dns_zone_id               = module.public_dns.dns_zone_id
 }

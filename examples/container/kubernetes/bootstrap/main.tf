@@ -36,4 +36,5 @@ module k8s_bootstrap {
   key_vault_id          = var.key_vault_id
   dns_zone_id = var.dns_zone_id
   letsencrypt_account_name = var.letsencrypt_account_name
+  application_gateway_id = var.application_gateway_id
 }

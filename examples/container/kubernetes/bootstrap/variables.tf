@@ -52,3 +52,8 @@ variable "letsencrypt_account_name" {
   description = "Lets Encrypt Account name to be used to request certificates"
   type = string
 }
+
+variable "application_gateway_id" {
+  description = "Unique identifier of the application gateway supposed to route traffic to the Kubernetes cluster"
+  type = string
+}

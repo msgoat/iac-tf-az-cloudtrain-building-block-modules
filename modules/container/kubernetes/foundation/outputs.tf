@@ -17,3 +17,14 @@ output "network_fqn" {
   description = "Fully qualified name of the network hosting the Kubernetes cluster"
   value       = module.network.vnet_name
 }
+
+output "application_gateway_id" {
+  description = "Unique identifier of the application gateway supposed to route traffic to the Kubernetes cluster"
+  value       = module.application_gateway_agic.agw_id
+}
+
+output "application_gateway_fqn" {
+  description = "Fully qualified name of the application gateway supposed to route traffic to the Kubernetes cluster"
+  value       = module.application_gateway_agic.agw_name
+}
+

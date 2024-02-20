@@ -47,3 +47,19 @@ output "log_analytics_workspace_fqn" {
   description = "Fully qualified name of the log analytics workspace managing all telemetry data of this solution"
   value       = module.log_analytics_workspace.log_analytics_workspace_name
 }
+
+output "public_dns_zone_id" {
+  description = "Unique identifier of the public DNS zone managing all DNS records routing traffic to this solution"
+  value       = module.public_dns.dns_zone_id
+}
+
+output "application_gateway_id" {
+  description = "Unique identifier of the application gateway supposed to route traffic to the Kubernetes cluster"
+  value       = module.k8s_foundation.application_gateway_id
+}
+
+output "application_gateway_fqn" {
+  description = "Fully qualified name of the application gateway supposed to route traffic to the Kubernetes cluster"
+  value       = module.k8s_foundation.application_gateway_fqn
+}
+

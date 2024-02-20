@@ -39,4 +39,6 @@ node_group_templates = [
   }
 ]
 kubernetes_admin_group_ids = ["485ed2bc-f530-4bc7-8d1c-9ee57999a4f1"]
-parent_dns_zone_id = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGroups/rg-eu-west-cloudtrain-core/providers/Microsoft.Network/dnszones/k8s.azure.msgoat.eu"
+parent_dns_zone_id         = "/subscriptions/227d5934-f446-4e1b-b8d2-06f2942b64cb/resourceGroups/rg-eu-west-cloudtrain-core/providers/Microsoft.Network/dnszones/k8s.azure.msgoat.eu"
+names_of_zones_to_span     = ["1", "2"]
+encryption_at_host_enabled = false # must explicitly switch off encryption at host, since our subscription does not support it!
