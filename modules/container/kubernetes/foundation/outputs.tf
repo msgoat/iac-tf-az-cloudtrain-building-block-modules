@@ -18,13 +18,13 @@ output "network_fqn" {
   value       = module.network.vnet_name
 }
 
-output "application_gateway_id" {
-  description = "Unique identifier of the application gateway supposed to route traffic to the Kubernetes cluster"
-  value       = module.application_gateway_agic.agw_id
+output "loadbalancer_id" {
+  description = "Unique identifier of the load balancer supposed to route traffic to the Kubernetes cluster"
+  value       = module.loadbalancer.agw_id
 }
 
-output "application_gateway_fqn" {
-  description = "Fully qualified name of the application gateway supposed to route traffic to the Kubernetes cluster"
-  value       = module.application_gateway_agic.agw_name
+output "loadbalancer_fqn" {
+  description = "Fully qualified name of the load balancer supposed to route traffic to the Kubernetes cluster"
+  value       = module.loadbalancer.agw_name
 }
 

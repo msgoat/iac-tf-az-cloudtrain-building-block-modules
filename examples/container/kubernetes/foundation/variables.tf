@@ -3,11 +3,6 @@ variable "region_name" {
   type        = string
 }
 
-variable "region_code" {
-  description = "The unique code of the region to deploy into."
-  type        = string
-}
-
 variable "solution_name" {
   description = "The name of the cloud solution that owns all cloud resources."
   type        = string
@@ -70,7 +65,7 @@ variable "node_group_templates" {
     max_size           = number                    # maximum size of this node group
     desired_size       = optional(number, 0)       # desired size of this node group; will default to min_size if set to 0
     disk_size          = number                    # size of attached root volume in GB
-    capacity_type      = string                    # defines the purchasing option for the EC2 instances in all node groups
+    capacity_type      = string                    # defines the purchasing option for the VM instances in all node groups
     instance_type      = string                    # virtual machine instance type which should be used for the AWS EKS worker node groups ordered descending by preference
     labels             = optional(map(string), {}) # Kubernetes labels to be attached to each worker node
     taints = optional(list(object({
@@ -78,7 +73,7 @@ variable "node_group_templates" {
       value  = string
       effect = string
     })), [])                                    # Kubernetes taints to be attached to each worker node
-    image_type = optional(string, "AL2_x86_64") # Type of OS images to be used for EC2 instances; possible values are: AL2_x86_64 | AL2_x86_64_GPU | AL2_ARM_64 | CUSTOM | BOTTLEROCKET_ARM_64 | BOTTLEROCKET_x86_64 | BOTTLEROCKET_ARM_64_NVIDIA | BOTTLEROCKET_x86_64_NVIDIA; default is "AL2_x86_64"
+    image_type = optional(string, "X86_64")     # Type of OS images to be used for VM instances; possible values are: X86_64 | ARM_64
   }))
 }
 

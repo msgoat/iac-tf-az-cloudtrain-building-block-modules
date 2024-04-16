@@ -3,11 +3,6 @@ variable "region_name" {
   type        = string
 }
 
-variable "region_code" {
-  description = "The unique code of the region to deploy into."
-  type        = string
-}
-
 variable "solution_name" {
   description = "The name of the cloud solution that owns all cloud resources."
   type        = string
@@ -28,9 +23,9 @@ variable "common_tags" {
   type        = map(string)
 }
 
-variable resource_group_id {
+variable "resource_group_id" {
   description = "The unique identifier of the resource group supposed to own all allocated resources"
-  type = string
+  type        = string
 }
 
 variable "k8s_cluster_id" {
@@ -38,22 +33,52 @@ variable "k8s_cluster_id" {
   type        = string
 }
 
-variable key_vault_id {
-  description = "Unique identifier of the Key Vault managing the encryption keys"
-  type = string
+variable "kubernetes_cluster_architecture" {
+  description = "Processor architecture of the worker nodes of the target Kubernetes cluster; allowed values are: `X86_64` (default), `ARM_64`"
+  type        = string
+  validation {
+    condition     = var.kubernetes_cluster_architecture == "X86_64" || var.kubernetes_cluster_architecture == "ARM_64"
+    error_message = "The kubernetes_cluster_architecture must be either `X86_64` (Intel-based 64 bit) or `ARM_64` (ARM-based 64 bit)"
+  }
 }
 
-variable "dns_zone_id" {
+variable "key_vault_id" {
+  description = "Unique identifier of the Key Vault managing the encryption keys"
+  type        = string
+}
+
+variable "public_dns_zone_id" {
   description = "Unique identifier of a public DNS supposed contain all public DNS records to route traffic to the Kubernetes cluster"
-  type = string
+  type        = string
 }
 
 variable "letsencrypt_account_name" {
   description = "Lets Encrypt Account name to be used to request certificates"
-  type = string
+  type        = string
 }
 
-variable "application_gateway_id" {
-  description = "Unique identifier of the application gateway supposed to route traffic to the Kubernetes cluster"
-  type = string
+variable "loadbalancer_id" {
+  description = "Unique identifier of the load balancer supposed to route traffic to the Kubernetes cluster"
+  type        = string
+}
+
+variable "host_names" {
+  description = "Host names of all hosts whose traffic should be routed to this solution"
+  type        = list(string)
+  default     = []
+}
+
+variable "opentelemetry_enabled" {
+  description = "Controls if OpenTelemetry support should be enabled"
+  type        = bool
+}
+
+variable "opentelemetry_collector_host" {
+  description = "Host name of the OpenTelemetry collector endpoint; required if `opentelemetry_enabled` is true"
+  type        = string
+}
+
+variable "opentelemetry_collector_port" {
+  description = "Port number of the OpenTelemetry collector endpoint; required if `opentelemetry_enabled` is true"
+  type        = number
 }

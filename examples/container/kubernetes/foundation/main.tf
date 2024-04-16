@@ -11,18 +11,6 @@ terraform {
   }
 }
 
-provider "azurerm" {
-  features {
-    key_vault {
-      purge_soft_delete_on_destroy    = true
-      recover_soft_deleted_key_vaults = true
-    }
-    resource_group {
-      prevent_deletion_if_contains_resources = false
-    }
-  }
-}
-
 locals {
   resource_group_name = "rg-${var.region_code}-${var.solution_fqn}-${var.kubernetes_cluster_name}"
 }
