@@ -88,3 +88,15 @@ module "k8s_tools" {
   depends_on                         = [module.k8s_addons]
 }
 
+module "k8s_namespaces" {
+  source                             = "../../../../../iac-tf-az-cloudtrain-modules//modules/container/aks/namespaces"
+  region_name                        = var.region_name
+  region_code                        = module.region.region_info.region_code
+  solution_name                      = var.solution_name
+  solution_stage                     = var.solution_stage
+  solution_fqn                       = var.solution_fqn
+  common_tags                        = local.module_common_tags
+  resource_group_id                  = var.resource_group_id
+  aks_cluster_id                     = var.k8s_cluster_id
+  kubernetes_namespace_templates     = var.kubernetes_namespace_templates
+}
